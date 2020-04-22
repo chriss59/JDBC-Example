@@ -8,11 +8,11 @@ import java.sql.Statement;
 
 public class Example {
 
-	// JDBC driver name and database URL
+	// JDBC driver name und URL der Datenbank angeben
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
 	static final String DB_URL = "jdbc:mysql://localhost/EMP";
 
-	//  Database credentials
+	//Passwort und Benutzername angeben
 	static final String USER = "username";
 	static final String PASS = "password";
 
@@ -21,21 +21,21 @@ public class Example {
 		Connection conn = null;
 		Statement stmt = null;
 		try{
-			//STEP 2: Register JDBC driver
+			//STEP 2: Registrieren JDBC driver
 			Class.forName("com.mysql.jdbc.Driver");
 
-			//STEP 3: Open a connection
+			//STEP 3: eine connection öffnen
 			System.out.println("Connecting to database...");
 			conn = DriverManager.getConnection(DB_URL,USER,PASS);
 
-			//STEP 4: Execute a query
+			//STEP 4: Ein query ausführen
 			System.out.println("Creating statement...");
 			stmt = conn.createStatement();
 			String sql;
 			sql = "SELECT id, first, last, age FROM Employees";
 			ResultSet rs = stmt.executeQuery(sql);
 
-			//STEP 5: Extract data from result set
+			//STEP 5: Daten aus rs(ResultSet) ausgeben in einer while schleife.
 			while(rs.next()){
 				//Retrieve by column name
 				int id  = rs.getInt("id");
@@ -49,7 +49,7 @@ public class Example {
 				System.out.print(", First: " + first);
 				System.out.println(", Last: " + last);
 			}
-			//STEP 6: Clean-up environment
+			//STEP 6: Verbindungen etc. wieder beenden bzw. schließen.
 			rs.close();
 			stmt.close();
 			conn.close();
@@ -60,7 +60,8 @@ public class Example {
 			//Handle errors for Class.forName
 			e.printStackTrace();
 		}finally{
-			//finally block used to close resources
+			//finally block um nochmal sicher zu gehen das die Verbindung getrennt wurde. Falls nicht,
+			//wird die Verbindung nochmal versucht zu trennen
 			try{
 				if(stmt!=null)
 					stmt.close();
