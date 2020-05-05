@@ -63,7 +63,7 @@ public class Example {
 			preparedStmt.setString (2, "Max"); //set first
 			preparedStmt.setString (3, "Mustermann"); //set last
 
-			//Erstelle eine Tabelle und führe es aus
+			//Erstelle eine Tabelle
 			String sqlTable = "CREATE TABLE REGISTRATION " +
 					"(id INTEGER not NULL, " +
 					" first VARCHAR(255), " + 
